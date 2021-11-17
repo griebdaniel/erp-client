@@ -23,7 +23,6 @@ export class EditableTextComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   constructor() {
-
   }
 
   ngOnInit() {

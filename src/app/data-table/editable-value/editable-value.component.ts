@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewChildren } from '@angular/core';
 import { EditableType, TextOptions, TableOptions, ObjectOptions } from './editable-type';
 import EditableValue from './editable-value';
 import * as Lodash from 'lodash';

@@ -6,26 +6,27 @@
       <button mat-menu-item routerLink="/main/supplies">Supplies</button>
       <button mat-menu-item routerLink="/main/products">Products</button>
     </mat-menu> -->
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'supply' }]">
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/supply']">
       <span class="mat-h3">Supplies</span>
     </button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'product' }]"><span class="mat-h3">Products</span></button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'employee' }]">
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/product']"><span
+        class="mat-h3">Products</span></button>
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/employee']">
       <span class="mat-h3">Employees</span>
     </button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'tool' }]"><span class="mat-h3">Tools</span></button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'shift' }]"><span class="mat-h3">Shifts</span></button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'skill' }]"><span class="mat-h3">Skills</span></button>
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/tool']"><span class="mat-h3">Tools</span></button>
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/shift', { table: 'shift' }]"><span
+        class="mat-h3">Shifts</span></button>
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/skill']"><span class="mat-h3">Skills</span></button>
     <br> <br>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'supply_order' }]">
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/supplyOrder']">
       <span class="mat-h3"> Supply Order</span>
     </button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'product_order' }]"><span class="mat-h3">Product Order</span>
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/productOrder']"><span class="mat-h3">Product
+        Order</span>
     </button>
-    <button [style.width]="'100%'" mat-button [routerLink]="['/main/genericTable', { table: 'schedule' }]"><span class="mat-h3">Schedule</span>
+    <button [style.width]="'100%'" mat-button [routerLink]="['/main/schedule']"><span class="mat-h3">Schedule</span>
     </button>
-
-
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

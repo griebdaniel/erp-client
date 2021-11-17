@@ -15,6 +15,8 @@ export class SupplyOrdersComponent implements OnInit {
   supplyOrders: Promise<object[]>;
   tableOptions = new TableOptions();
 
+  options: Promise<TableOptions>;
+
   constructor(private crudService: CrudService) {
     this.supplyOrders = this.crudService.find('supply_order')
       .pipe(
@@ -22,7 +24,6 @@ export class SupplyOrdersComponent implements OnInit {
       ).toPromise();
 
     this.supplyOrders.then(res => console.log(res));
-
   }
 
   ngOnInit() {
@@ -50,6 +51,8 @@ export class SupplyOrdersComponent implements OnInit {
       { name: 'supplies', type: 'Table', options: suppliesOptions },
       { name: 'arrived', type: 'Boolean' },
     ];
+
+    this.options = this.crudService.getTypes('supply_order').pipe(map(columnTypes => ({ columnTypes, close: false }))).toPromise();
   }
 
   async onModification2(modification: any) {

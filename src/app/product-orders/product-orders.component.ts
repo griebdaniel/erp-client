@@ -14,6 +14,8 @@ export class ProductOrdersComponent implements OnInit {
   productOrders: Promise<object[]>;
   tableOptions = new TableOptions();
 
+  options: Promise<TableOptions>;
+
   constructor(private crudService: CrudService) {
     this.productOrders = this.crudService.find('product_order')
       .pipe(
@@ -46,6 +48,9 @@ export class ProductOrdersComponent implements OnInit {
       { name: 'products', type: 'Table', options: productsOptions },
       { name: 'delivered', type: 'Boolean' }
     ];
+
+    this.options = this.crudService.getTypes('product_order').pipe(map(columnTypes => ({ columnTypes, close: false }))).toPromise();
+
   }
 
   onModification(modification: any) {

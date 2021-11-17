@@ -15,16 +15,16 @@ import { GenericTableComponent } from './generic-table/generic-table.component';
 const routes: Routes = [
   {
     path: 'main', component: MainComponent, children: [
-      { path: 'supplies', component: SuppliesComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'employees', component: EmployeesComponent },
-      { path: 'tools', component: ToolsComponent },
-      { path: 'shifts', component: ShiftsComponent },
-      { path: 'skills', component: SkillsComponent },
+      { path: 'supply', component: SuppliesComponent },
+      { path: 'product', component: ProductsComponent },
+      { path: 'employee', component: EmployeesComponent },
+      { path: 'tool', component: ToolsComponent },
+      { path: 'shift', component: ShiftsComponent },
+      { path: 'skill', component: SkillsComponent },
       { path: 'supplyOrder', component: SupplyOrdersComponent },
       { path: 'productOrder', component: ProductOrdersComponent },
       { path: 'schedule', component: ScheduleComponent },
-      { path: 'genericTable', component: GenericTableComponent }
+      // { path: 'genericTable', component: GenericTableComponent }
     ]
   },
   { path: '', redirectTo: '/main', pathMatch: 'full' },

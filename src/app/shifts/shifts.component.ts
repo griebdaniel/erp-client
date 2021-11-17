@@ -12,7 +12,9 @@ import { FormControl } from '@angular/forms';
 })
 export class ShiftsComponent implements OnInit {
   shifts: Promise<object[]>;
-  options = new TableOptions();
+  shiftOptions = new TableOptions();
+
+  options: Promise<TableOptions>;
 
   days = new FormControl();
   dayList: string[] = ['Monday', 'Thuesday', 'Wensday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -25,13 +27,15 @@ export class ShiftsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.options.columnTypes = [
+    this.shiftOptions.columnTypes = [
       { name: 'name', type: 'Text' },
       { name: 'start', type: 'Text' },
       { name: 'end', type: 'Text' },
       { name: 'breakStart', type: 'Text' },
       { name: 'breakEnd', type: 'Text' },
     ];
+
+    this.options = this.crudService.getTypes('shift').pipe(map(columnTypes => ({ columnTypes, close: false }))).toPromise();
   }
 
   onModification(modification: any) {

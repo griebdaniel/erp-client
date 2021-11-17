@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // import { TableInfo, EditableType } from '../data-table/editable-value/editable-type';
 import * as Lodash from 'lodash';
 import { CrudService } from '../services/crud.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { TableOptions, TextOptions } from 'gdr-data-table';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, TransitionCheckState } from '@angular/material';
 
 import * as lodash from 'lodash';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -22,16 +22,20 @@ export class ProductsComponent implements OnInit {
   productOptions = new TableOptions();
   valueConfirmed = new Subject<void>();
 
+  options: any;
+
   @ViewChild('table', { static: false }) table: any;
 
   constructor(private crudService: CrudService, private dialog: MatDialog) {
     this.products = this.crudService.find('product')
       .pipe(
-        map(products => Lodash.sortBy(products, ['name']))
+        map(products => Lodash.sortBy(products, ['name'])),
       ).toPromise();
   }
 
   ngOnInit() {
+    this.options =  this.crudService.getTypes('product').pipe(map(columnTypes => ({ columnTypes, close: false }))).toPromise();
+
     const phaseOptions = new TableOptions();
     const phaseNecessaryOptions = new TableOptions();
     const phaseSkillOptions = new TableOptions();
@@ -104,9 +108,9 @@ export class ProductsComponent implements OnInit {
   }
 
   async onModification(modification: any) {
+    console.log(modification);
     const accepted = await this.crudService.modify('product', modification);
     if (accepted) {
-      console.log('confiremd');
       this.valueConfirmed.next();
     }
 

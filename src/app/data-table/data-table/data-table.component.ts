@@ -40,6 +40,7 @@ export class DataTableComponent implements OnInit {
   }
 
   async ngOnInit() {
+    // this.modified.emit({ type: 'update', modification: {} });
     this.dataSource.sort = this.sort;
     setTimeout(() => this.dataSource.paginator = this.paginator);
 
@@ -51,7 +52,7 @@ export class DataTableComponent implements OnInit {
       if (!this.resolvedOptions.columnTypes) {
         this.resolvedOptions.columnTypes = this.getColumnTypes(res[0]);
       }
-      console.log(lodash.cloneDeep(this.resolvedOptions.columnTypes));
+
       this.dataSource.data = res[0] === undefined ? [] : res[0];
       this.sort.sort({ id: res[1].columnTypes[0].name, start: 'asc', disableClear: true });
     });
@@ -106,12 +107,12 @@ export class DataTableComponent implements OnInit {
   }
 
   onUpdate(row: object, column: string, value: any) {
-    row[column] = value;
-
     const update = {
       type: 'update' as any,
-      modification: { row, column, value }
+      modification: { row: {...row}, column, value }
     };
+
+    row[column] = value;
 
     if (this.resolvedOptions.columnTypes.find((columnType) => columnType.name === column).type !== 'table') {
       this.modified.emit(update);
@@ -182,6 +183,7 @@ export class DataTableComponent implements OnInit {
       if (!dcm) {
         return false;
       }
+
 
       if (!lodash.isEqual(dcm.dbValue[column], row[column])) {
         // console.log(dcm.dbValue[column], row[column]);

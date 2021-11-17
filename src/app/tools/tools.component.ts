@@ -12,7 +12,8 @@ import { TableOptions } from 'gdr-data-table';
 export class ToolsComponent implements OnInit {
 
   tools: Promise<object[]>;
-  options = new TableOptions();
+  toolsOptions = new TableOptions();
+  options: Promise<TableOptions>;
 
   constructor(private crudService: CrudService) {
     this.tools = this.crudService.find('tool')
@@ -22,10 +23,12 @@ export class ToolsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.options.columnTypes = [
+    this.toolsOptions.columnTypes = [
       { name: 'name', type: 'Text' },
       { name: 'count', type: 'Number' },
     ];
+
+    this.options = this.crudService.getTypes('tool').pipe(map(columnTypes => ({ columnTypes, close: false }))).toPromise();
   }
 
   onModification(modification: any) {

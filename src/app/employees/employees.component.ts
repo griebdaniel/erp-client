@@ -12,7 +12,9 @@ import { TableOptions, TextOptions } from 'gdr-data-table';
 })
 export class EmployeesComponent implements OnInit {
   employees: Promise<object[]>;
-  options = new TableOptions();
+  skillOptions = new TableOptions();
+
+  options: Promise<TableOptions>;
 
   constructor(private crudService: CrudService) {
     this.employees = this.crudService.find('employee')
@@ -57,12 +59,14 @@ export class EmployeesComponent implements OnInit {
     ];
     freeDaysOption.cancel = false;
 
-    this.options.columnTypes = [
+    this.skillOptions.columnTypes = [
       { name: 'name', type: 'Text' },
       { name: 'skills', type: 'Table', options: skillsOptions },
       { name: 'shift', type: 'Text', options: shiftOptions2 },
       { name: 'freeDays', type: 'Table', options: freeDaysOption },
     ];
+
+    this.options = this.crudService.getTypes('employee').pipe(map(columnTypes => ({ columnTypes, close: false }))).toPromise();
   }
 
   async onModification(modification: any) {

@@ -13,7 +13,7 @@ export class ScheduleComponent implements OnInit {
 
   schedule: Promise<object[]>;
   tableOptions = new TableOptions();
-  scheduleForDayOptions = new TableOptions();
+  scheduleForDayOptions: any = new TableOptions();
 
   constructor(private crudService: CrudService) {
     this.schedule = this.crudService.getSchedule().toPromise();
@@ -22,29 +22,29 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
 
-    const scheduleForEmployeeOptions = new TableOptions();
-    const scheduleForShiftOptions = new TableOptions();
-    const scheduleOptions = new TableOptions();
+    const scheduleForEmployeeOptions: any = new TableOptions();
+    const scheduleForShiftOptions: any = new TableOptions();
+    const scheduleOptions: any = new TableOptions();
 
     scheduleOptions.columnTypes = [
-      { name: 'phase', type: 'Text' },
-      { name: 'start', type: 'Text'},
-      { name: 'end', type: 'Text'}
+      { name: 'phase', type: 'string' },
+      { name: 'start', type: 'string'},
+      { name: 'end', type: 'string'}
     ];
 
     scheduleForEmployeeOptions.columnTypes = [
-      { name: 'employee', type: 'Text' },
-      { name: 'schedule', type: 'Table', options: scheduleOptions }
+      { name: 'employee', type: 'string' },
+      { name: 'schedule', type: 'table', options: scheduleOptions }
     ];
 
     scheduleForShiftOptions.columnTypes = [
-      { name: 'shift', type: 'Text' },
-      { name: 'schedule', type: 'Table', options: scheduleForEmployeeOptions },
+      { name: 'shift', type: 'string' },
+      { name: 'schedule', type: 'table', options: scheduleForEmployeeOptions },
     ];
 
     this.scheduleForDayOptions.columnTypes = [
-      { name: 'date', type: 'Date' },
-      { name: 'schedule', type: 'Table', options: scheduleForShiftOptions },
+      { name: 'date', type: 'date' },
+      { name: 'schedule', type: 'table', options: scheduleForShiftOptions },
     ];
 
   }

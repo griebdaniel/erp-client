@@ -21,7 +21,7 @@ export class TableHeaderComponent implements OnInit {
   resolvedOptions: HeaderOptions = {};
 
   defaultOptions: HeaderOptions = {
-    close: false,
+    close: true,
   };
 
   constructor() { }

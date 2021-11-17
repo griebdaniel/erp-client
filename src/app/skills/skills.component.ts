@@ -11,7 +11,7 @@ import { TableOptions } from 'gdr-data-table';
 })
 export class SkillsComponent implements OnInit {
   skills: Promise<object[]>;
-  options = new TableOptions();
+  options: any
 
   constructor(private crudService: CrudService) {
     this.skills = this.crudService.find('skill')
@@ -21,12 +21,15 @@ export class SkillsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.options.columnTypes = [
-      { name: 'name', type: 'Text' },
-    ];
+    // this.options.columnTypes = [
+    //   { name: 'name', type: 'Text' },
+    // ];
+    this.crudService.getTypes('skill').subscribe(res => console.log(res));
+    this.options = this.crudService.getTypes('skill').pipe(map(columnTypes => ({ columnTypes }))).toPromise();
   }
 
   onModification(modification: any) {
+    console.log(modification);
     this.crudService.modify('skill', modification).then(result => console.log(result));
   }
 

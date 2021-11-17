@@ -3,6 +3,7 @@ import * as Lodash from 'lodash';
 import { CrudService } from '../services/crud.service';
 import { map } from 'rxjs/operators';
 import { TableOptions } from '../data-table/editable-value/editable-type';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -28,8 +29,7 @@ export class SuppliesComponent implements OnInit {
     //   { name: 'name', type: 'Text' },
     //   { name: 'quantity', type: 'Number' }
     // ];
-    this.options = new Promise(async resolve => resolve({ columnTypes: await this.crudService.getTypes('supply').toPromise() }));
-
+    this.options =  this.crudService.getTypes('supply').pipe(map(columnTypes => ({ columnTypes }))).toPromise();
   }
 
   async onModification(modification: any) {
